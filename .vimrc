@@ -10,6 +10,7 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'elzr/vim-json'
 Bundle 'tpope/vim-markdown'
+Bundle 'kchmck/vim-coffee-script'
 
 " Color Bundles
 Bundle 'altercation/vim-colors-solarized'
@@ -127,9 +128,15 @@ set ignorecase                              " ignore case of searches.
 set hlsearch                                " hightlight the search results
 set cursorline                              " show the cursor line
 set hidden                                  " allow changing buffer without saving
+set nobackup                                " no backup of files
+set nowritebackup
+set noswapfile
 
 " reset the mapleader to be the comma (,)
 let mapleader = ','
+
+" automatically remove whitespace on save
+" autocmd BufWritePre * :%s/\s\+$//e
 
 " set the semi colon as the easy motion key
 let g:EasyMotion_leader_key = '<Space>'
@@ -223,6 +230,9 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
+" Nerd commenter (gcc for simple comment)
+map gcs <plug>NERDCommenterSexy
+
 " Gundo
 nnoremap <F4> :GundoToggle<CR>
 
@@ -237,3 +247,70 @@ nnoremap <leader>td :TernDef<CR>
 nnoremap <leader>tb :TernDocBrowse<CR>
 nnoremap <leader>tR :TernRename<CR>
 nnoremap <leader>tr :TernRefs<CR>
+
+" Convert to javascript file to coffee script
+map <leader>jc :ConvertToCoffee<CR>
+map <leader>cj :CoffeeCompile vertical<CR>
+
+" Delete the current file and its buffer
+map <leader>del :call delete(@%)<CR>:bdelete!<CR>
+
+" Switch things around
+map sw :Switch<CR>
+
+" End it
+map en A;<ESC>
+
+" *****************************************************************
+" Reload vim when we make a change to the .vimrc file
+" *****************************************************************
+augroup reload_vimrc
+autocmd!
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END
+
+" *****************************************************************
+" Handy functions
+" *****************************************************************
+
+" Convert the current javascript file to coffeescript
+function! ConvertToCoffee()
+  let jsFile = bufname("%")
+  if jsFile =~ '\.js$'
+    execute "silent w"
+    let coffeeFile = substitute(bufname("%"), ".js", ".coffee", "")
+    let command = "silent !js2coffee " . jsFile . " > " . coffeeFile
+    let openfileCommand = "vsplit " . coffeeFile
+    execute command
+    execute openfileCommand
+    execute "1"
+  else
+    echo "I can only convert javascript files"
+  endif
+endfunction
+:command! ConvertToCoffee :call ConvertToCoffee()
+
+" https://github.com/AndrewRadev/switch.vim
+" " Switch definitions for javascript using a Dict
+" autocmd FileType Javascript let b:switch_custom_definitions =
+"   \ [
+"   \   {'have': 'not.have'},
+"   \   {'exist': 'not.exist'},
+"   \   {'.not': ''},
+"   \ ]
+
+" let g:switch_custom_definitions =
+autocmd FileType Javascript let b:switch_custom_definitions =
+  \ [
+  \   ['male', 'female'],
+  \   ['===', '!='],
+  \   ['test', 'development', 'production'],
+  \   ['have', 'not.have'],
+  \   ['exist', 'not.exist'],
+  \   ['be.exactly', 'eql'],
+  \   ['.get', '.post' , '.put', '.del'],
+  \   ['if', 'else' , 'else if'],
+  \   ['before(', 'beforeEach('],
+  \   ['describe(', 'describe.only('],
+  \   ['it(', 'it.only(']
+  \ ]
