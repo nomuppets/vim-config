@@ -11,6 +11,7 @@ Bundle 'jelera/vim-javascript-syntax'
 Bundle 'elzr/vim-json'
 Bundle 'tpope/vim-markdown'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'digitaltoad/vim-jade'
 
 " Color Bundles
 Bundle 'altercation/vim-colors-solarized'
@@ -38,6 +39,7 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'embear/vim-localvimrc'
+Bundle 'junegunn/vim-easy-align'
 
 " Nice ident guides <leader>ig
 Bundle 'nathanaelkane/vim-indent-guides'
@@ -69,7 +71,6 @@ Bundle 'mattn/vim-textobj-url'
 
 " Snipets
 Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
 
 " Node plugin
 Bundle 'moll/vim-node'
@@ -86,6 +87,13 @@ Bundle 'scrooloose/nerdcommenter'
 " Shell for vim
 Bundle 'Shougo/vimproc.vim'
 Bundle 'Shougo/vimshell.vim'
+
+" swift support
+Bundle 'Keithbsmiley/swift.vim'
+
+" html stuff
+Bundle 'Valloric/MatchTagAlways'
+Bundle 'mattn/emmet-vim'
 
 " *****************************************************************
 " Vim Settings
@@ -148,14 +156,17 @@ set ttimeoutlen=50
 " autocmd vimenter * if !argc() | NERDTree | endif
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-" setup buffergator on the right
+" setup buffergator on the right & show relative
 let g:buffergator_viewport_split_policy = 'R'
+let g:buffergator_show_full_directory_path = 0
+let g:buffergator_vsplit_size = 50
 
 " Control P setup
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " Gundo Setup
 let g:gundo_right = 1
@@ -180,10 +191,18 @@ let g:tern_show_argument_hints='on_hold'
 " Javascrit syntax checking
 let g:syntastic_javascript_checkers = ['jshint']
 
+" Tagbar settings
+let g:tagbar_right = 1
+let g:tagbar_width = 80
+let g:tagbar_autoclose = 1
+
 " Node.js completion
 filetype plugin on
 
 " Ulitsnips
+set runtimepath+=~/Dropbox
+let g:UltiSnipsSnippetsDir = "~/Dropbox/Vim"
+let g:UltiSnipsSnippetDirectories = ["Vim"]
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
@@ -261,6 +280,20 @@ map sw :Switch<CR>
 " End it
 map en A;<ESC>
 
+" Yank in function in javascript / copy a whole function
+map yif 0y%
+
+" Surround with quotes
+nmap ys" ysiw"
+nmap ys' ysiw'
+
+" Edit your snippets
+map snip :UltiSnipsEdit<CR>
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap gap <Plug>(EasyAlign)ii=<CR>
+nmap ga <Plug>(EasyAlign)
+
 " *****************************************************************
 " Reload vim when we make a change to the .vimrc file
 " *****************************************************************
@@ -302,9 +335,14 @@ endfunction
 " let g:switch_custom_definitions =
 autocmd FileType Javascript let b:switch_custom_definitions =
   \ [
+  \   ['console.log', 'grunt.log.error', 'grunt.log.ok', 'grunt.log.subhead'],
+  \   ['white', 'black', 'grey', 'blue', 'cyan', 'green', 'magenta', 'red', 'yellow', 'rainbow'],
+  \   ['low', 'high'],
+  \   ['rising', 'dropping'],
   \   ['male', 'female'],
-  \   ['===', '!='],
-  \   ['test', 'development', 'production'],
+  \   ['===', '!=='],
+  \   ['test', 'development','staging', 'production'],
+  \   ['should', 'should.not'],
   \   ['have', 'not.have'],
   \   ['exist', 'not.exist'],
   \   ['be.exactly', 'eql'],
