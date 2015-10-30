@@ -8,7 +8,9 @@ Bundle 'gmarik/vundle'
 " Syntax and language improvements.
 Bundle 'pangloss/vim-javascript'
 Bundle 'jelera/vim-javascript-syntax'
+Bundle 'mxw/vim-jsx'
 Bundle 'elzr/vim-json'
+Bundle 'briancollins/vim-jst'
 Bundle 'tpope/vim-markdown'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'digitaltoad/vim-jade'
@@ -93,6 +95,8 @@ Bundle 'Keithbsmiley/swift.vim'
 
 " html stuff
 Bundle 'Valloric/MatchTagAlways'
+
+" control + y + ,
 Bundle 'mattn/emmet-vim'
 
 " *****************************************************************
@@ -140,6 +144,9 @@ set nobackup                                " no backup of files
 set nowritebackup
 set noswapfile
 
+" make sure ejs files are treated as html
+" au BufNewFile,BufRead *.ejs set filetype=html
+
 " reset the mapleader to be the comma (,)
 let mapleader = ','
 
@@ -176,7 +183,7 @@ let g:gundo_width = 80
 let g:syntastic_mode_map={ 'mode': 'activ',
   \ 'active_filetypes': [],
   \ 'passive_filetypes': ['html', 'cpp'] }
-let g:syntastic_check_on_open=1
+" let g:syntastic_check_on_open=1
 
 " Configure YouCompleteMe.
 let g:ycm_add_preview_to_completeopt=0
@@ -189,7 +196,14 @@ let g:tern_map_keys=1
 let g:tern_show_argument_hints='on_hold'
 
 " Javascrit syntax checking
-let g:syntastic_javascript_checkers = ['jshint']
+" let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
+
+" Disable syntax checking on open of file
+let g:syntastic_check_on_open = 0
+
+" Allow JSX in normal JS files
+let g:jsx_ext_required = 0
 
 " Tagbar settings
 let g:tagbar_right = 1
@@ -199,6 +213,9 @@ let g:tagbar_autoclose = 1
 " Node.js completion
 filetype plugin on
 
+" gg=G will indent document
+filetype indent on
+
 " Ulitsnips
 set runtimepath+=~/Dropbox
 let g:UltiSnipsSnippetsDir = "~/Dropbox/Vim"
@@ -206,6 +223,10 @@ let g:UltiSnipsSnippetDirectories = ["Vim"]
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+let g:snipMate = {}
+let g:snipMate.scope_aliases = {}
+let g:snipMate.scope_aliases['jst'] = 'jst,html'
 
 " NumberToggle
 let g:NumberToggleTrigger="<F2>"
@@ -294,6 +315,9 @@ map snip :UltiSnipsEdit<CR>
 nmap gap <Plug>(EasyAlign)ii=<CR>
 nmap ga <Plug>(EasyAlign)
 
+" Open file in browser
+map <leader>h :silent ! open %<CR>
+
 " *****************************************************************
 " Reload vim when we make a change to the .vimrc file
 " *****************************************************************
@@ -337,6 +361,7 @@ autocmd FileType Javascript let b:switch_custom_definitions =
   \ [
   \   ['console.log', 'grunt.log.error', 'grunt.log.ok', 'grunt.log.subhead'],
   \   ['white', 'black', 'grey', 'blue', 'cyan', 'green', 'magenta', 'red', 'yellow', 'rainbow'],
+  \   ['width', 'height'],
   \   ['low', 'high'],
   \   ['rising', 'dropping'],
   \   ['male', 'female'],
