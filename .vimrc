@@ -29,7 +29,8 @@ Plugin 'nathanaelkane/vim-indent-guides'  " Nice ident guides <leader>ig
 Plugin 'AndrewRadev/switch.vim'           " Switch stuff around
 Plugin 'Lokaltog/vim-easymotion'          " Easy motion: search and getting around
 Plugin 'junegunn/vim-easy-align'          " Align to equal signs
-
+Plugin 'mattn/emmet-vim'                  " emmet invoked using: control + y + ,
+ 
 " Editor improvments 2
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-commentary'
