@@ -1,5 +1,5 @@
 set nocompatible 	" be iMproved, required
-filetype off		  " required
+filetype off      " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -10,6 +10,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Color Bundles
 Plugin 'sjl/badwolf'
+Plugin 'altercation/vim-colors-solarized'
 
 " Javascript bundle
 Plugin 'ternjs/tern_for_vim'              " Js analysis (install required)
@@ -19,8 +20,8 @@ Plugin 'mxw/vim-jsx'                      " react jsx syntax
 
 " Editor improvement
 Plugin 'Valloric/YouCompleteMe'           " Auto completion (install required)
-Plugin 'scrooloose/nerdtree' 		          " Tree navigation
-Plugin 'bling/vim-airline' 		            " Cool vim status bars
+Plugin 'scrooloose/nerdtree'              " Tree navigation
+Plugin 'bling/vim-airline'                " Cool vim status bars
 Plugin 'jeetsukumaran/vim-buffergator'	  " Buffer Manager
 Plugin 'ciaranm/detectindent'	            " Detect indent settings automatically
 Plugin 'Raimondi/delimitMate'             " Auto creates delimiters
@@ -48,7 +49,7 @@ Plugin 'elzr/vim-json'                  " json file formating
 Plugin 'briancollins/vim-jst'           " ejs file formating
 
 " General bundles
-Plugin 'scrooloose/syntastic'		        " code syntax check
+Plugin 'scrooloose/syntastic'           " code syntax check
 Plugin 'SirVer/ultisnips'               " sippets
 
 call vundle#end()            " required
@@ -80,6 +81,7 @@ set guioptions=                             " get rid of gui options
 set guioptions-=L                           " disable the scrollbars
 set guioptions-=r                           " disable the scrollbars
 set guioptions-=R                           " disable the scrollbars
+set guifont=Menlo:h11
 
 " Enable better indentation
 set autoindent
@@ -141,6 +143,9 @@ let g:NumberToggleTrigger="<F2>"
 
 " make sure a space is added before the comment
 let g:NERDSpaceDelims=1
+
+" delimitmate settings
+let delimitMate_expand_cr = 1
 
 " ultisnips
 set runtimepath+=~/Dropbox
