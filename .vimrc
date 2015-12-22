@@ -83,7 +83,7 @@ augroup END
 " *****************************************************************
 autocmd BufEnter * colorscheme badwolf
 autocmd BufEnter *.html colorscheme molokai
- 
+
 " *****************************************************************
 " Set editor properties
 " *****************************************************************
