@@ -1,4 +1,4 @@
-set nocompatible 	" be iMproved, required
+set nocompatible  " be iMproved, required
 filetype off      " required
 
 " set the runtime path to include Vundle and initialize
@@ -11,6 +11,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Color Bundles
 Plugin 'sjl/badwolf'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
 
 " Javascript bundle
 Plugin 'ternjs/tern_for_vim'              " Js analysis (install required)
@@ -18,11 +19,11 @@ Plugin 'jelera/vim-javascript-syntax'     " order first
 Plugin 'pangloss/vim-javascript'          " order next
 Plugin 'mxw/vim-jsx'                      " react jsx syntax
 
-" Editor improvement
+" Editor improvements
 Plugin 'Valloric/YouCompleteMe'           " Auto completion (install required)
 Plugin 'scrooloose/nerdtree'              " Tree navigation
 Plugin 'bling/vim-airline'                " Cool vim status bars
-Plugin 'jeetsukumaran/vim-buffergator'	  " Buffer Manager
+Plugin 'jeetsukumaran/vim-buffergator'	   " Buffer Manager
 Plugin 'ciaranm/detectindent'	            " Detect indent settings automatically
 Plugin 'Raimondi/delimitMate'             " Auto creates delimiters
 Plugin 'nathanaelkane/vim-indent-guides'  " Nice ident guides <leader>ig
@@ -30,7 +31,7 @@ Plugin 'AndrewRadev/switch.vim'           " Switch stuff around
 Plugin 'Lokaltog/vim-easymotion'          " Easy motion: search and getting around
 Plugin 'junegunn/vim-easy-align'          " Align to equal signs
 Plugin 'mattn/emmet-vim'                  " emmet invoked using: control + y + ,
- 
+
 " Editor improvments 2
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-commentary'
@@ -52,6 +53,11 @@ Plugin 'briancollins/vim-jst'           " ejs file formating
 " General bundles
 Plugin 'scrooloose/syntastic'           " code syntax check
 Plugin 'SirVer/ultisnips'               " sippets
+Plugin 'kien/ctrlp.vim'                 " conrol p for searching
+
+" Documentation
+Plugin 'heavenshell/vim-jsdoc'          " js doc vim integration
+
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -73,6 +79,12 @@ augroup PreviewOnBottom
 augroup END
 
 " *****************************************************************
+" Change the color scheme based on file type
+" *****************************************************************
+autocmd BufEnter * colorscheme badwolf
+autocmd BufEnter *.html colorscheme molokai
+ 
+" *****************************************************************
 " Set editor properties
 " *****************************************************************
 
@@ -82,7 +94,7 @@ set guioptions=                             " get rid of gui options
 set guioptions-=L                           " disable the scrollbars
 set guioptions-=r                           " disable the scrollbars
 set guioptions-=R                           " disable the scrollbars
-set guifont=Menlo:h11
+set guifont=Menlo:h13
 
 " Enable better indentation
 set autoindent
@@ -135,6 +147,8 @@ let g:buffergator_vsplit_size = 50
 let g:syntastic_javascript_checkers = ['standard']
 " let g:syntastic_javascript_checkers = ['jshint']
 " let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
 
 " allow jsx to be parsed in .js files
 let g:jsx_ext_required = 0
@@ -156,6 +170,13 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
+" control P setup
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+let g:ctrlp_working_path_mode = 0
 
 " *****************************************************************
 " Custom key mapping Map
@@ -185,6 +206,9 @@ filetype indent on
 " strips the trailing white space from the file.
 nnoremap <leader>w :%s/\s\+$//e<CR>:nohl<CR>
 
+" use standard js to fix js file
+nnoremap <leader>f :silent !standard % --format<CR>:set autoread<CR>
+
 " nerd commenter (gcc for simple comment)
 map gcs <plug>NERDCommenterSexy
 
@@ -212,6 +236,7 @@ nmap ga <Plug>(EasyAlign)
 
 " Open file in browser
 map <leader>h :silent ! open %<CR>
+
 
 " *****************************************************************
 " swtich defs
