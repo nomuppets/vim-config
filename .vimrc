@@ -16,6 +16,7 @@ Plugin 'tomasr/molokai'
 " Javascript bundle
 Plugin 'ternjs/tern_for_vim'              " Js analysis (install required)
 Plugin 'jelera/vim-javascript-syntax'     " order first
+" Plugin 'othree/yajs.vim'
 Plugin 'pangloss/vim-javascript'          " order next
 Plugin 'mxw/vim-jsx'                      " react jsx syntax
 
@@ -81,8 +82,8 @@ augroup END
 " *****************************************************************
 " Change the color scheme based on file type
 " *****************************************************************
-autocmd BufEnter * colorscheme badwolf
-autocmd BufEnter *.html colorscheme molokai
+" autocmd BufEnter * colorscheme badwolf
+" autocmd BufEnter *.html colorscheme molokai
 
 " *****************************************************************
 " Set editor properties
@@ -246,9 +247,11 @@ autocmd FileType Javascript let b:switch_custom_definitions =
   \   ['console.log', 'grunt.log.error', 'grunt.log.ok', 'grunt.log.subhead'],
   \   ['white', 'black', 'grey', 'blue', 'cyan', 'green', 'magenta', 'red', 'yellow', 'rainbow'],
   \   ['width', 'height'],
+  \   ['absolute', 'relative'],
   \   ['low', 'high'],
   \   ['rising', 'dropping'],
   \   ['male', 'female'],
+  \   ['var', 'const', 'let'],
   \   ['===', '!=='],
   \   ['test', 'development','staging', 'production'],
   \   ['should', 'should.not'],
@@ -260,4 +263,11 @@ autocmd FileType Javascript let b:switch_custom_definitions =
   \   ['before(', 'beforeEach('],
   \   ['describe(', 'describe.only('],
   \   ['it(', 'it.only(']
+  \ ]
+
+autocmd BufRead,BufNewFile *.scss set filetype=css
+autocmd FileType css let b:switch_custom_definitions =
+  \ [
+  \   ['absolute', 'relative'],
+  \   ['left', 'right']
   \ ]
