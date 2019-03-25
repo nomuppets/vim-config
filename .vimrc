@@ -20,6 +20,9 @@ Plugin 'jelera/vim-javascript-syntax'     " order first
 Plugin 'pangloss/vim-javascript'          " order next
 Plugin 'mxw/vim-jsx'                      " react jsx syntax
 
+" Java autocomplete
+Plugin 'artur-shaik/vim-javacomplete2'
+
 " Editor improvements
 Plugin 'Valloric/YouCompleteMe'           " Auto completion (install required)
 Plugin 'scrooloose/nerdtree'              " Tree navigation
@@ -32,6 +35,7 @@ Plugin 'AndrewRadev/switch.vim'           " Switch stuff around
 Plugin 'Lokaltog/vim-easymotion'          " Easy motion: search and getting around
 Plugin 'junegunn/vim-easy-align'          " Align to equal signs
 Plugin 'mattn/emmet-vim'                  " emmet invoked using: control + y + ,
+Plugin 'ekalinin/Dockerfile.vim'          " docker file highlighting
 
 " Editor improvments 2
 Plugin 'scrooloose/nerdcommenter'
@@ -62,6 +66,11 @@ Plugin 'heavenshell/vim-jsdoc'          " js doc vim integration
 
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+" *****************************************************************
+" Java autocomplete
+" *****************************************************************
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " *****************************************************************
 " Reload vim when we make a change to the .vimrc file
@@ -96,11 +105,19 @@ set guioptions-=L                           " disable the scrollbars
 set guioptions-=r                           " disable the scrollbars
 set guioptions-=R                           " disable the scrollbars
 set guifont=Menlo:h13
+" set guifont=Monaco:h12
+" set guifont=Source_Code_Pro:h13
+" set guifont=Consolas:h13
+" set guifont=Roboto:h13
+
 
 " Enable better indentation
 set autoindent
 set smarttab
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+
+" Java spacing
+autocmd Filetype java setlocal ts=4 sw=4 expandtab
 
 " Heaps of good stuff
 set nu                                      " set line numbers
@@ -238,6 +255,8 @@ nmap ga <Plug>(EasyAlign)
 " Open file in browser
 map <leader>h :silent ! open %<CR>
 
+" compile a java program
+nnoremap <leader>j :silent !javac % <CR>
 
 " *****************************************************************
 " swtich defs
@@ -262,7 +281,9 @@ autocmd FileType Javascript let b:switch_custom_definitions =
   \   ['if', 'else' , 'else if'],
   \   ['before(', 'beforeEach('],
   \   ['describe(', 'describe.only('],
-  \   ['it(', 'it.only(']
+  \   ['it(', 'it.only('],
+  \   ['Buy', 'Sell'],
+  \   ['minutes', 'hours', 'days']
   \ ]
 
 autocmd BufRead,BufNewFile *.scss set filetype=css
