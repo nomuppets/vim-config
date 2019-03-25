@@ -105,11 +105,6 @@ set guioptions-=L                           " disable the scrollbars
 set guioptions-=r                           " disable the scrollbars
 set guioptions-=R                           " disable the scrollbars
 set guifont=Menlo:h13
-" set guifont=Monaco:h12
-" set guifont=Source_Code_Pro:h13
-" set guifont=Consolas:h13
-" set guifont=Roboto:h13
-
 
 " Enable better indentation
 set autoindent
