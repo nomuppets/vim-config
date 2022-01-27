@@ -16,7 +16,7 @@ Plugin 'tomasr/molokai'
 " Javascript bundle
 Plugin 'ternjs/tern_for_vim'              " Js analysis (install required)
 Plugin 'jelera/vim-javascript-syntax'     " order first
-" Plugin 'othree/yajs.vim'
+Plugin 'leafgarland/typescript-vim'       " typescript
 Plugin 'pangloss/vim-javascript'          " order next
 Plugin 'mxw/vim-jsx'                      " react jsx syntax
 
@@ -27,7 +27,7 @@ Plugin 'artur-shaik/vim-javacomplete2'
 Plugin 'Valloric/YouCompleteMe'           " Auto completion (install required)
 Plugin 'scrooloose/nerdtree'              " Tree navigation
 Plugin 'bling/vim-airline'                " Cool vim status bars
-Plugin 'jeetsukumaran/vim-buffergator'	   " Buffer Manager
+Plugin 'jeetsukumaran/vim-buffergator'	  " Buffer Manager
 Plugin 'ciaranm/detectindent'	            " Detect indent settings automatically
 Plugin 'Raimondi/delimitMate'             " Auto creates delimiters
 Plugin 'nathanaelkane/vim-indent-guides'  " Nice ident guides <leader>ig
@@ -36,6 +36,7 @@ Plugin 'Lokaltog/vim-easymotion'          " Easy motion: search and getting arou
 Plugin 'junegunn/vim-easy-align'          " Align to equal signs
 Plugin 'mattn/emmet-vim'                  " emmet invoked using: control + y + ,
 Plugin 'ekalinin/Dockerfile.vim'          " docker file highlighting
+Plugin 'jbmorgado/vim-pine-script'        " pine script highlighting
 
 " Editor improvments 2
 Plugin 'scrooloose/nerdcommenter'
@@ -105,6 +106,11 @@ set guioptions-=L                           " disable the scrollbars
 set guioptions-=r                           " disable the scrollbars
 set guioptions-=R                           " disable the scrollbars
 set guifont=Menlo:h13
+" set guifont=Monaco:h12
+" set guifont=Source_Code_Pro:h13
+" set guifont=Consolas:h13
+" set guifont=Roboto:h13
+
 
 " Enable better indentation
 set autoindent
@@ -158,8 +164,6 @@ let g:buffergator_vsplit_size = 50
 
 " javascrit syntax checking
 let g:syntastic_javascript_checkers = ['standard']
-" let g:syntastic_javascript_checkers = ['jshint']
-" let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
@@ -220,7 +224,7 @@ filetype indent on
 nnoremap <leader>w :%s/\s\+$//e<CR>:nohl<CR>
 
 " use standard js to fix js file
-nnoremap <leader>f :silent !standard % --format<CR>:set autoread<CR>
+nnoremap <leader>f :silent !standard % --fix<CR>:set autoread<CR>
 
 " nerd commenter (gcc for simple comment)
 map gcs <plug>NERDCommenterSexy
@@ -278,7 +282,11 @@ autocmd FileType Javascript let b:switch_custom_definitions =
   \   ['describe(', 'describe.only('],
   \   ['it(', 'it.only('],
   \   ['Buy', 'Sell'],
-  \   ['minutes', 'hours', 'days']
+  \   ['long', 'short'],
+  \   ['start', 'end'],
+  \   ['minutes', 'hours', 'days'],
+  \   ['XBTUSD', 'ETHUSD'],
+  \   ['1m', '1h'],
   \ ]
 
 autocmd BufRead,BufNewFile *.scss set filetype=css
